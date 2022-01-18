@@ -90,13 +90,11 @@ Built by 0xTuytuy @Alluo
                     text = re.sub(r"\W", "_", text)
                     text = text.replace('_claim_', '')
                     poapUrls = json.loads(r.get('urls'))
-                    print("poap url before pop ", poapUrls)
                     if "poapUrls" is None:
                         bot.sendMessage(chat_id=chat_id, text="We have ran out, if you were a paying participant in the CSW please get in touch with the UNIT team.", reply_to_message_id=msg_id)
                         return 'ok'
                     else:
                         bot.sendMessage(chat_id=chat_id, text="Just click on the link and follow insturctions to claime your POAP, if you have any problem reach out to @Oxtuytuy on Telegram " + poapUrls.pop(), reply_to_message_id=msg_id)
-                        print("poap url after pop ", poapUrls)
                         r.set('urls', json.dumps(poapUrls))
                         save_user(chat_id, person['name'], 'claimed')
                         return 'ok'
