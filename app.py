@@ -1,3 +1,4 @@
+from queue import Empty
 import re
 from flask import Flask, request
 import telegram
@@ -33,7 +34,9 @@ def respond():
         # print the welcoming message
         bot_welcome = """
 Welcome to Unit Crypto Ski Week POAP giveaway.
-Please confirm that you have bought you Crypto Skii Pass by entering your the command `/name {your name}`
+Please confirm that you have bought you Crypto Skii Pass by typing your name after the command /name, here is an example:
+
+/name remi
 
 Built by 0xTuytuy @Alluo
         """
@@ -46,6 +49,9 @@ Built by 0xTuytuy @Alluo
             # clear the message we got from any non alphabets
             text = re.sub(r"\W", "_", text)
             inputed_name =  text[6:]
+            if not inputed_name or re.search("^\s*$", inputed_name):
+                bot.sendMessage(chat_id=chat_id, text="You have not entered any name, please make sure to enter the command `/name` followed by your name!", reply_to_message_id=msg_id)
+                return 'ok'
             # getting names of the pople who have claimed already
             registered_users = json.loads(r.get('registered'))
             #looping throught the list to see if the person has claimed already
