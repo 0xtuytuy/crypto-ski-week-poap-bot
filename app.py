@@ -29,6 +29,8 @@ def respond():
     text = update.message.text.encode('utf-8').decode()
     # for debugging purposes only
     print("got text message :", text)
+    print("username: ", update.message.from_user['username'])
+    
     # the first time you chat with the bot AKA the welcoming message
     if "/start" in text:
         # print the welcoming message
