@@ -56,7 +56,7 @@ You have not entered any name, please make sure to enter the command `/name` fol
 /name satoshi
                 """
                 bot.sendMessage(chat_id=chat_id, text=wrong_command_message, reply_to_message_id=msg_id)
-                return 
+                return 'ok'
             # getting names of the pople who have claimed already
             registered_users = json.loads(r.get('registered'))
             #looping throught the list to see if the person has claimed already
