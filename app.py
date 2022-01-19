@@ -71,7 +71,7 @@ built by @OxTuytuy
                         return 'ok'
                     else:
                         popaUrl = poapUrls.pop()
-                        bot.sendMessage(chat_id=chat_id, text="Just click on this link: {0} and follow insturctions to claim your POAP, if you have any problem reach out to @Oxtuytuy on Telegram".format(popaUrl), reply_to_message_id=msg_id)
+                        bot.sendMessage(chat_id=chat_id, text="Just click on this link: {0} and follow instructions to claim your POAP, if you have any problem reach out to @Oxtuytuy on Telegram".format(popaUrl), reply_to_message_id=msg_id)
                         r.set('poapUrls', json.dumps(poapUrls))
                         save_user(chat_id, person['name'], 'claimed', popaUrl)
                         return 'ok'
