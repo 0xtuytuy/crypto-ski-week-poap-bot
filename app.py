@@ -42,6 +42,8 @@ POAP = proof of attendance protocol.
 Please claim it if you have bought your Crypto Ski Week Pass or were a resident of Crypto Ski Week. 
 Claim your GiveAway by typing the command /claim
 
+If you have any questions, before reaching out, RTFM: https://poap.xyz/faqs
+
 built by @OxTuytuy
         """
         # registering the chat_id
