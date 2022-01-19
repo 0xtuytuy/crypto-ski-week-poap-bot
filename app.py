@@ -33,8 +33,12 @@ def respond():
     if "/start" in text:
         # print the welcoming message
         bot_welcome = """
-Welcome to Unit Crypto Ski Week POAP giveaway.
-Please confirm that you have bought you Crypto Skii Pass by typing your name after the command /name, here is an example:
+Welcome to Unit Crypto Ski Week POAP giveaway! 
+
+POAP = proof of attendance protocol. 
+
+Please claim it if you have bought your Crypto Ski Week Pass or were a resident of Crypto Ski Week. 
+Claim your GiveAway by typing  your name after the command /name, here is an example:
 
 /name satoshi
 
@@ -98,8 +102,8 @@ You have not entered any name, please make sure to enter the command `/name` fol
                         bot.sendMessage(chat_id=chat_id, text="We have ran out, if you were a paying participant in the CSW please get in touch with the UNIT team.", reply_to_message_id=msg_id)
                         return 'ok'
                     else:
-                        bot.sendMessage(chat_id=chat_id, text="Just click on the link and follow insturctions to claime your POAP, if you have any problem reach out to @Oxtuytuy on Telegram " + poapUrls.pop(), reply_to_message_id=msg_id)
-                        r.set('urls', json.dumps(poapUrls))
+                        bot.sendMessage(chat_id=chat_id, text="Just click on the link and follow insturctions to claim your POAP, if you have any problem reach out to @Oxtuytuy on Telegram " + poapUrls.pop(), reply_to_message_id=msg_id)
+                        r.set('poapUrls', json.dumps(poapUrls))
                         save_user(chat_id, person['name'], 'claimed')
                         return 'ok'
         except Exception as e:
