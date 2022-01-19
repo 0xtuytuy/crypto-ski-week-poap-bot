@@ -38,7 +38,7 @@ Please confirm that you have bought you Crypto Skii Pass by typing your name aft
 
 /name satoshi
 
-Built by 0xTuytuy @Alluo
+Built by 0xTuytuy
         """
         # registering the chat_id
         save_user(chat_id, '', 'started')
