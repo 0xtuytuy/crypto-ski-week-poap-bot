@@ -93,7 +93,7 @@ You have not entered any name, please make sure to enter the command `/name` fol
                     # clear the message we got from any non alphabets
                     text = re.sub(r"\W", "_", text)
                     text = text.replace('_claim_', '')
-                    poapUrls = json.loads(r.get('urls'))
+                    poapUrls = json.loads(r.get('poapUrls'))
                     if "poapUrls" is None:
                         bot.sendMessage(chat_id=chat_id, text="We have ran out, if you were a paying participant in the CSW please get in touch with the UNIT team.", reply_to_message_id=msg_id)
                         return 'ok'
