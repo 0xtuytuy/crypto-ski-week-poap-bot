@@ -47,39 +47,9 @@ Claim your GiveAway by typing  your name after the command /name, here is an exa
 Built by 0xTuytuy
         """
         # registering the chat_id
-        save_user(chat_id, '', 'started')
+        save_user(chat_id, update.message.from_user['username'], 'started')
         # send the welcoming message
         bot.sendMessage(chat_id=chat_id, text=bot_welcome, reply_to_message_id=msg_id)
-    elif "/name" in text:
-        try:
-            # clear the message we got from any non alphabets
-            text = re.sub(r"\W", "_", text)
-            inputed_name =  text[6:]
-            if not inputed_name or re.search("^\s*$", inputed_name):
-                wrong_command_message = """
-You have not entered any name, please make sure to enter the command `/name` followed by your name like so:
-                
-/name satoshi
-                """
-                bot.sendMessage(chat_id=chat_id, text=wrong_command_message, reply_to_message_id=msg_id)
-                return 'ok'
-            # getting names of the pople who have claimed already
-            registered_users = json.loads(r.get('registered'))
-            #looping throught the list to see if the person has claimed already
-            for person in registered_users:
-                if person['chat_id'] == chat_id and person['status'] == 'claimed':
-                    #error message in case user has already claimed
-                    bot.sendMessage(chat_id=chat_id, text="You have already claimed your POAP !", reply_to_message_id=msg_id) 
-                    return 'ok'
-            #saving user's name and update status
-            save_user(chat_id, inputed_name, 'saved_name')
-            #sending next instructions
-            bot.sendMessage(chat_id=chat_id, text="Thank you, please run the command `/claim` to receive your POAP", reply_to_message_id=msg_id)
-            return 'ok'
-        except Exception as e:
-            # if things went wrong
-            bot.sendMessage(chat_id=chat_id, text="There was a problem with verifying your name, please reach out to the Unit team", reply_to_message_id=msg_id)
-            print(e)
     elif "/claim" in text:
         try:
             #get all users
@@ -87,15 +57,11 @@ You have not entered any name, please make sure to enter the command `/name` fol
             #loop over all users
             for person in registered_user:
                 #if user status says poap already claimed
-                if person['chat_id'] == chat_id and person['status'] == 'claimed':
+                if person['name'] == update.message.from_user['username'] and person['status'] == 'claimed':
                     bot.sendMessage(chat_id=chat_id, text="You seem to have already claimed your POAP :/", reply_to_message_id=msg_id)
                     return 'ok'
-                #if user has the wrong status, probs smth else is wrong  
-                if person['chat_id'] == chat_id and person['status'] != 'saved_name':
-                    bot.sendMessage(chat_id=chat_id, text="Please make sure you run `/name {your name}` before claiming", reply_to_message_id=msg_id)
-                    return 'ok'
                 #looking for this user in the redis
-                if person['chat_id'] == chat_id:
+                if person['name'] == update.message.from_user['username']:
                     # clear the message we got from any non alphabets
                     text = re.sub(r"\W", "_", text)
                     text = text.replace('_claim_', '')
