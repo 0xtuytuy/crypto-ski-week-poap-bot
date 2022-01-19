@@ -40,9 +40,7 @@ Welcome to Unit Crypto Ski Week POAP giveaway!
 POAP = proof of attendance protocol. 
 
 Please claim it if you have bought your Crypto Ski Week Pass or were a resident of Crypto Ski Week. 
-Claim your GiveAway by typing  your name after the command /name, here is an example:
-
-/name satoshi
+Claim your GiveAway by typing the command /claim
 
 Built by 0xTuytuy
         """
