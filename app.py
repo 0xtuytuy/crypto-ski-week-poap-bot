@@ -69,14 +69,13 @@ Built by 0xTuytuy @Alluo
             registered_user = json.loads(r.get('registered'))  
             #loop over all users
             for person in registered_user:
-                print("person: ", person)
-                #if user has the wrong status, probs smth else is wrong  
-                if person['chat_id'] == chat_id and person['status'] != 'saved_name':
-                    bot.sendMessage(chat_id=chat_id, text="Please make sure you run `/name {your name}` before claiming", reply_to_message_id=msg_id)
-                    return 'ok'
                 #if user status says poap already claimed
                 if person['chat_id'] == chat_id and person['status'] == 'claimed':
                     bot.sendMessage(chat_id=chat_id, text="You seem to have already claimed your POAP :/", reply_to_message_id=msg_id)
+                    return 'ok'
+                #if user has the wrong status, probs smth else is wrong  
+                if person['chat_id'] == chat_id and person['status'] != 'saved_name':
+                    bot.sendMessage(chat_id=chat_id, text="Please make sure you run `/name {your name}` before claiming", reply_to_message_id=msg_id)
                     return 'ok'
                 #looking for this user in the redis
                 if person['chat_id'] == chat_id:
