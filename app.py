@@ -47,7 +47,7 @@ Claim your GiveAway by typing  your name after the command /name, here is an exa
 Built by 0xTuytuy
         """
         # registering the chat_id
-        save_user(chat_id, update.message.from_user['username'], 'started')
+        save_user(chat_id, update.message.from_user['username'], 'started', '')
         # send the welcoming message
         bot.sendMessage(chat_id=chat_id, text=bot_welcome, reply_to_message_id=msg_id)
     elif "/claim" in text:
@@ -70,9 +70,10 @@ Built by 0xTuytuy
                         bot.sendMessage(chat_id=chat_id, text="We have ran out, if you were a paying participant in the CSW please get in touch with the UNIT team.", reply_to_message_id=msg_id)
                         return 'ok'
                     else:
-                        bot.sendMessage(chat_id=chat_id, text="Just click on the link and follow insturctions to claim your POAP, if you have any problem reach out to @Oxtuytuy on Telegram " + poapUrls.pop(), reply_to_message_id=msg_id)
+                        popaUrl = poapUrls.pop()
+                        bot.sendMessage(chat_id=chat_id, text="Just click on this link: {0} and follow insturctions to claim your POAP, if you have any problem reach out to @Oxtuytuy on Telegram".format(popaUrl), reply_to_message_id=msg_id)
                         r.set('poapUrls', json.dumps(poapUrls))
-                        save_user(chat_id, person['name'], 'claimed')
+                        save_user(chat_id, person['name'], 'claimed', popaUrl)
                         return 'ok'
         except Exception as e:
             # if things went wrong
@@ -97,14 +98,14 @@ def handle_404(e):
     # handle all other routes here
     return 'Not Found, but we HANDLED IT'
 
-def save_user(chat_id, name, status):
+def save_user(chat_id, name, status, poapUrl):
     try:
         # getting the pople who have registered already
         registered_users = json.loads(r.get('registered'))
         #checking if user exist before appending
         for id, person in enumerate(registered_users):
             if person['chat_id'] == chat_id:
-                registered_users[id] = {'chat_id': chat_id, 'name': name, 'status': status}
+                registered_users[id] = {'chat_id': chat_id, 'name': name, 'status': status, 'poapUrl': poapUrl}
                 r.set('registered', json.dumps(registered_users))
                 return
         new_user = {'chat_id': chat_id, 'name': name, 'status': status}
