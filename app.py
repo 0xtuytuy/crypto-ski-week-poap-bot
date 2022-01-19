@@ -10,13 +10,7 @@ global bot, TOKEN, URL
 TOKEN = os.environ.get("BOT_TOKEN")
 bot = telegram.Bot(token=TOKEN)
 URL = os.environ.get("BOT_URL")
-
 r = redis.from_url(os.environ.get("REDIS_URL"))
-
-#testing data NEEDS TO BE REMOVED
-r.set('urls', json.dumps(['http://POAP.xyz/claim/z0rzfds', 'http://POAP.xyz/claim/rofyasd']))
-r.set('registered', json.dumps([{'chat_id': "123567678", 'name': "test", 'status': "claimed"}]))
-
 app = Flask(__name__)
 
 @app.route('/{}'.format(TOKEN), methods=['POST'])
